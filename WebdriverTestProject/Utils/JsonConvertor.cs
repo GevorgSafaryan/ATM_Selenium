@@ -12,9 +12,9 @@ namespace WebdriverTestProject.Utils
     {
         public static TestDataGenerator GetTestData()
         {
-            if (File.Exists(@"D:\ATM_Module_6\WebdriverTestProject\Utils\TestData.json"))
+            if (File.Exists(@"D:\ATM_Selenium\WebdriverTestProject\Utils\TestData.json"))
             {
-                string data = File.ReadAllText(@"D:\ATM_Module_6\WebdriverTestProject\Utils\TestData.json");
+                string data = File.ReadAllText(@"D:\ATM_Selenium\WebdriverTestProject\Utils\TestData.json");
                 return JsonConvert.DeserializeObject<TestDataGenerator>(data);
             }
             else

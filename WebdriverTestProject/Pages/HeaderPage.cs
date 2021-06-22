@@ -1,11 +1,11 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebdriverTestProject.Utils;
+using SeleniumExtras.WaitHelpers;
 
 namespace WebdriverTestProject.Pages
 {
@@ -16,13 +16,14 @@ namespace WebdriverTestProject.Pages
 
         public bool VerifySuccessfulLogin(string login)
         {
+            Wait.Until(ExpectedConditions.ElementExists(By.XPath(emailAddress)));
             bool assertion =  Helpers.FindElementByXpath(Driver, emailAddress).Text.Contains(login);
             return assertion;
         }
 
         public void OpenProfileMenu()
         {
-            Helpers.FindElementByXpath(Driver, profileMenu).Click();
+            Wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(emailAddress))).Click();
         }
     }
 }

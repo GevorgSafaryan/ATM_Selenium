@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebdriverTestProject.Utils;
+using SeleniumExtras.WaitHelpers;
 
 namespace WebdriverTestProject.Pages
 {
@@ -14,24 +15,23 @@ namespace WebdriverTestProject.Pages
         private string composeButton = "//span[@class = 'compose-button__wrapper']";
         private string draftsFolder = "//div[text() = 'Черновики']";
         private string sentFolder = "//a[@href = '/sent/']";
+        private string activeFolder = "//a[@class = 'nav__item js-shortcut nav__item_active nav__item_shortcut nav__item_expanded_true nav__item_child-level_0']";
 
         public void ClickOnComposeButton()
         {
-            //Wait.Until(WaitConditions.ElementDisplayed(Helpers.FindElementByXpath(Driver, composeButton))).Click();
-            Helpers.FindElementByXpath(Driver, composeButton).Click();
+            Wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(composeButton))).Click();
         }
 
         public void OpenDraftsFolder()
         {
-            //System.Threading.Thread.Sleep(20000);
-            IWebElement element = Helpers.FindElementByXpath(Driver, draftsFolder);
-            Wait.Until(WaitConditions.IsElementDisplayed(element));
-            Helpers.FindElementByXpath(Driver, draftsFolder).Click();
+            Wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(draftsFolder))).Click();
+            Wait.Until(ExpectedConditions.ElementExists(By.XPath(activeFolder)));
         }
 
         public void OpenSentFolder()
         {
-            Helpers.FindElementByXpath(Driver, sentFolder).Click();
+            Wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(sentFolder))).Click();
+            Wait.Until(ExpectedConditions.ElementExists(By.XPath(activeFolder)));
         }
     }
 }

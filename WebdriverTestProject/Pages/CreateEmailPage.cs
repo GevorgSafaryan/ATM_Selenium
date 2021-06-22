@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebdriverTestProject.Utils;
+using SeleniumExtras.WaitHelpers;
+using OpenQA.Selenium;
 
 namespace WebdriverTestProject.Pages
 {
@@ -21,10 +23,8 @@ namespace WebdriverTestProject.Pages
 
         public void FillRecipient(string recipient)
         {
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
-            //Wait.Until(WaitConditions.IsElementDisplayed(Helpers.FindElementByXpath(Driver, composeWindow)));
+            Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(composeWindow)));
             Helpers.FindElementsByXpath(Driver, recipientAndSubject)[0].SendKeys(recipient);
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0);
         }
 
         public void FillSubject(string subject)
@@ -39,7 +39,7 @@ namespace WebdriverTestProject.Pages
 
         public void ClickOnSendButton()
         {
-            Helpers.FindElementByXpath(Driver, sendButton).Click();
+            Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(sendButton))).Click();
         }
 
         public void ClickOnSaveButton()
@@ -54,6 +54,9 @@ namespace WebdriverTestProject.Pages
 
         public bool VerifyDraftEmailsContent(string recipient, string subject, string bodyText)
         {
+            Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(enteredRecipient)));
+            Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(recipientAndSubject)));
+            Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(draftedEmailBody)));
             bool assertRecipient = Helpers.FindElementByXpath(Driver, enteredRecipient).GetAttribute("title").Equals(recipient);
             bool assertSubject = Helpers.FindElementsByXpath(Driver, recipientAndSubject)[1].GetAttribute("value").Equals(subject);
             bool assertBody = Helpers.FindElementByXpath(Driver, draftedEmailBody).Text.Equals(bodyText);
@@ -62,7 +65,7 @@ namespace WebdriverTestProject.Pages
 
         public void ClickOnCloseButtonAfterSendingEmail()
         {
-            Helpers.FindElementByXpath(Driver, closIconAfterSendingEmail).Click();
+            Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(closIconAfterSendingEmail))).Click();
         }
     }
 }

@@ -81,7 +81,6 @@ namespace WebdriverTestProject.Tests
             PageObjects.CreateEmail.ClickOnSendButton();
             PageObjects.CreateEmail.ClickOnCloseButtonAfterSendingEmail();
             PageObjects.LeftMenu.OpenSentFolder();
-            PageObjects.EmailsContent.OpenEnEmailFromTheListById(0);
             Assert.IsTrue(PageObjects.EmailsContent.VerifySentEmailsContent(Recipient, Subject, Body));
         }
 

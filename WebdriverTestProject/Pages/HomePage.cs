@@ -1,11 +1,12 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+//using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebdriverTestProject.Utils;
+using SeleniumExtras.WaitHelpers;
 
 namespace WebdriverTestProject.Pages
 {
@@ -21,13 +22,13 @@ namespace WebdriverTestProject.Pages
         {
             Helpers.FindElementByXpath(Driver, loginField).SendKeys(login);
             Helpers.FindElementByXpath(Driver, enterPasswordButton).Click();
-            //Wait.Until(WaitConditions.IsElementDisplayed(Helpers.FindElementByXpath(Driver, passwordField)));
-            Helpers.FindElementByXpath(Driver, passwordField).SendKeys(password);
+            Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(passwordField))).SendKeys(password);
             Helpers.FindElementByXpath(Driver, enterButton).Click();
         }
 
         public bool VerifySuccessfullLogout()
         {
+            Wait.Until(ExpectedConditions.ElementExists(By.XPath(createAccountButton)));
             return Helpers.FindElementByXpath(Driver, createAccountButton).Displayed;
         }
     }

@@ -28,6 +28,8 @@ namespace WebdriverTestProject.Pages
                     options.AddArgument("--start-maximized");
                     options.AddExcludedArgument("enable-automation");
                     options.AddAdditionalCapability("useAutomationExtension", false);
+                    options.AddUserProfilePreference("credentials_enable_service", false);
+                    options.AddUserProfilePreference("profile.password_manager_enabled", false);
                     Driver = new ChromeDriver(options);
                     Driver.Url = URL;
                     break;
@@ -44,7 +46,6 @@ namespace WebdriverTestProject.Pages
             };
             Wait.IgnoreExceptionTypes(typeof(NoSuchElementException), typeof(ElementNotVisibleException),
                 typeof(StaleElementReferenceException));
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
         }
 
         public void CleanUp()

@@ -13,13 +13,13 @@ namespace WebdriverTestProject.Tests
 {
     public class BaseTest
     {
-        [OneTimeSetUp]
+        [SetUp]
         public void Setup()
         {
             PageObjects.BasePage.Init();
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             PageObjects.BasePage.CleanUp();
